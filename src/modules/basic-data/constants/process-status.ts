@@ -1,0 +1,9 @@
+export const PROCESS_STATUS = {
+    PENDING: 'PENDING',
+    RUNNING: 'RUNNING',
+    OUTDATED: 'OUTDATED',
+    SUCCESS: 'SUCCESS',
+    ERROR: 'ERROR',
+    HANDUP: 'HANDUP',
+    CANCEL: 'CANCEL',
+};

@@ -1,0 +1,60 @@
+build-test:
+  only:
+    - master
+  stage: build
+  script:
+    - echo "Do your build here"
+    - whoami
+    - pwd
+    - pnpm install
+    - pnpm build
+  artifacts:
+    paths:
+      - ./dist/
+deploy-test:
+  only:
+    - master
+  stage: deploy
+  script:
+    - whoami
+    - echo "$SIT_HOST"
+    - pwd
+    - ssh nodejs@$SIT_HOST 'rm -rf ~/nature/admin'
+    - ssh nodejs@$SIT_HOST 'mkdir -p ~/nature/admin'
+    - scp $SIT_ENV_FILE nodejs@$SIT_HOST:~/nature/admin/.env
+    - scp -r ./dist/. nodejs@$SIT_HOST:~/nature/admin/dist
+    - scp -r ./package.json nodejs@$SIT_HOST:~/nature/admin/package.json
+    - ssh nodejs@$SIT_HOST
+    - cd ~/nature/admin/
+    - pnpm install
+    - pm2 restart admin
+build-prod:
+  only:
+    - production
+  stage: build
+  script:
+    - echo "Do your build here"
+    - whoami
+    - pwd
+    - pnpm install
+    - pnpm build
+  artifacts:
+    paths:
+      - ./dist/
+deploy-prod:
+  only:
+    - production
+  stage: deploy
+  script:
+    - whoami
+    - echo "$PROD_HOST"
+    - pwd
+    - ssh nodejs@$PROD_HOST 'rm -rf ~/nature/admin'
+    - ssh nodejs@$PROD_HOST 'mkdir -p ~/nature/admin'
+    - scp $PROD_ENV_FILE nodejs@$PROD_HOST:~/nature/admin/.env
+    - scp -r ./dist/. nodejs@$PROD_HOST:~/nature/admin/dist
+    - scp -r ./package.json nodejs@$PROD_HOST:~/nature/admin/package.json
+    - ssh nodejs@$PROD_HOST
+    - cd ~/nature/admin/
+    - pnpm install
+    - pm2 restart admin

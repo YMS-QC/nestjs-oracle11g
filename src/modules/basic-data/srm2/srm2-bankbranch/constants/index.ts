@@ -1,0 +1,1 @@
+export const SRM2_BANKBRANCH_TRANSPORT = 'SRM2支行';
