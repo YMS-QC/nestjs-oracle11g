@@ -1,3 +1,7 @@
+# 专门为 Oracle11g PLSQL 开发的API管理平台
+
+通过Nestjs + Oracledb 模块调用PLSQL，实现排队调用，自动回调等特性
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
